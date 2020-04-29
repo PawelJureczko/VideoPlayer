@@ -8,10 +8,10 @@ const ranges = player.querySelectorAll('.player__slider');
 
 
 
-<<<<<<< HEAD
+
 function playVideo(){
+
     if(video.paused){
-        setInterval(fillProgressBar, 500);
         video.play();
         toggle.textContent="ll";
     } else {
@@ -22,6 +22,16 @@ function playVideo(){
 
 function skipVideo(){
     video.currentTime+=parseInt(this.dataset.skip);
+}
+
+
+function scrub(e){
+    const scrubTime = (e.offsetX/progress.offsetWidth);
+    video.currentTime = video.duration*scrubTime;
+}
+
+function fullscreen(){
+    video.classList.toggle(":fullscreen");
 }
 
 function getSliders(){
@@ -36,39 +46,22 @@ function fillProgressBar(){
     let videoLength = video.duration;
     let currentMoment = video.currentTime;
     let temp = Math.round(1000*currentMoment/videoLength)/10;
-    console.log(temp);
     progressBar.style.flexBasis= `${temp}%`
-    console.log(videoLength);
 }
 
 
 toggle.addEventListener("click", playVideo);
 video.addEventListener("click", playVideo);
+video.addEventListener("timeupdate", fillProgressBar);
 skipButtons.forEach(item=>
     item.addEventListener("click", skipVideo)
     );
 ranges.forEach(item=>{
     item.addEventListener("mousemove", getSliders);
 })
-=======
-function togglePlay(){
-    if(video.paused){
-        video.play();
-        toggle.textContent = "ll";
-    } else {
-        video.pause();
-        toggle.textContent = "►";
-    }
-}
 
-function skip (){
-    video.currentTime+=parseInt(this.dataset.skip);
-}
-
-
-skipButtons.forEach(item=>{
-    item.addEventListener("click", skip);
-})
-toggle.addEventListener("click", togglePlay);
-video.addEventListener("click", togglePlay);
->>>>>>> d29dcc5ad2780d27b57b4888abdc6635d8220888
+let mousedown = false;
+progress.addEventListener("click", scrub);
+progress.addEventListener("mousemove", (e)=> mousedown && scrub(e));
+progress.addEventListener("mousedown", () => mousedown=true);
+progress.addEventListener("mouseup", () => mousedown=false);
