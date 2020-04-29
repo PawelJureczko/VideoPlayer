@@ -8,6 +8,7 @@ const ranges = player.querySelectorAll('.player__slider');
 
 
 
+<<<<<<< HEAD
 function playVideo(){
     if(video.paused){
         setInterval(fillProgressBar, 500);
@@ -49,3 +50,25 @@ skipButtons.forEach(item=>
 ranges.forEach(item=>{
     item.addEventListener("mousemove", getSliders);
 })
+=======
+function togglePlay(){
+    if(video.paused){
+        video.play();
+        toggle.textContent = "ll";
+    } else {
+        video.pause();
+        toggle.textContent = "►";
+    }
+}
+
+function skip (){
+    video.currentTime+=parseInt(this.dataset.skip);
+}
+
+
+skipButtons.forEach(item=>{
+    item.addEventListener("click", skip);
+})
+toggle.addEventListener("click", togglePlay);
+video.addEventListener("click", togglePlay);
+>>>>>>> d29dcc5ad2780d27b57b4888abdc6635d8220888
