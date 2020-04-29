@@ -31,8 +31,8 @@ function scrub(e){
 }
 
 function fullscreen(){
-    video.classList.toggle(":fullscreen");
-}
+        video.webkitRequestFullscreen();
+    }
 
 function getSliders(){
     if(this.name==="volume"){
@@ -50,6 +50,7 @@ function fillProgressBar(){
 }
 
 
+
 toggle.addEventListener("click", playVideo);
 video.addEventListener("click", playVideo);
 video.addEventListener("timeupdate", fillProgressBar);
@@ -65,3 +66,4 @@ progress.addEventListener("click", scrub);
 progress.addEventListener("mousemove", (e)=> mousedown && scrub(e));
 progress.addEventListener("mousedown", () => mousedown=true);
 progress.addEventListener("mouseup", () => mousedown=false);
+video.addEventListener("dblclick", fullscreen);
